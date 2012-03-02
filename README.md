@@ -46,9 +46,9 @@ var B = Class.create ({
 console.log (new B ("a").a ()); //prints: Letter a
 ```
 
-#### References ####
+#### Documentation ####
 
 [Usage](https://github.com/Gagle/Classful-JS/wiki/Usage)  
-[Documentation](https://github.com/Gagle/Classful-JS/wiki/Documentation)  
+[Reference](https://github.com/Gagle/Classful-JS/wiki/Reference)  
 [Change Log](https://github.com/Gagle/Classful-JS/wiki/Change-log)  
 [MIT License](https://github.com/Gagle/Classful-JS/blob/master/LICENSE)
