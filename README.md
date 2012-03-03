@@ -3,7 +3,7 @@ Classful JS
 
 #### The definitive JavaScript class library ####
 
-Version: 1.0
+Version: 1.0r3
 
 *Classful JS* is a library that eases the manipulation and usage of JavaScript prototypes.
 
