@@ -20,7 +20,7 @@ QUnit.test ("Class creation", function (){
 			}
 		}
 	});
-
+	
 	var B = Class.create ({
 		extend: A,
 		constructor: function (a, b){
@@ -156,6 +156,4 @@ QUnit.test ("Class creation", function (){
 	}catch (e){
 		QUnit.ok (true, "Cannot extend a singleton.");
 	}
-	
-	Class.namespace ();
 });
