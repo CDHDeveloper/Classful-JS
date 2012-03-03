@@ -12,7 +12,7 @@ This library aims to provide a simple, lightweight and easy to use class module.
 There are some other JavaScript class libraries out in the market but they lack in some points:
 
 * Class modifications during run-time. They can't modify the classes, with *Classful JS* you can.
-* Partial inheritance. Most libraries only can call the super constructor, but what happens if you are overriding an inherited property? You probably want to call the super property. With *Classful JS* you can achieve this and more.
+* Partial inheritance. Most libraries can only call the super constructor, but what happens if you are overriding an inherited property? You probably want to call the super property. With *Classful JS* you can achieve this and more.
 * Complexity. Some libraries tend to be huge, heavy, with a lot of features that you probably will never use. For some reason they want to convert a dynamic language like JavaScript, into a static language like Java or C#. *Classful JS* has been designed to be simple and easy to use, with just the necessary features to wrap the `prototype` property.
 
 The *Classful JS* library unifies all of these aspects and also performs some internal validations to ensure the correct usage.
