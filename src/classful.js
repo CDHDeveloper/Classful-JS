@@ -170,16 +170,19 @@ var Class = (function (){
 		
 		f.__metadata__.init = metadata.init;
 		
-		if (metadata.fullyQualifiedName && metadata.fullyQualifiedName !== f.__metadata__.fullyQualifiedName){
-			if (f.__metadata__.fullyQualifiedName){
+		if (metadata.fullyQualifiedName !== undefined &&
+				metadata.fullyQualifiedName !== f.__metadata__.fullyQualifiedName){
+			if (metadata.fullyQualifiedName){
+				if (f.__metadata__.fullyQualifiedName){
+					var arr = f.__metadata__.fullyQualifiedName.split (".");
+					delete namespace.using[arr[arr.length  - 1]];
+				}
+				namespace.using[metadata.name] = f;
+				f.__metadata__.fullyQualifiedName = metadata.fullyQualifiedName;
+			}else{
 				var arr = f.__metadata__.fullyQualifiedName.split (".");
 				delete namespace.using[arr[arr.length  - 1]];
 			}
-			namespace.using[metadata.name] = f;
-			f.__metadata__.fullyQualifiedName = metadata.fullyQualifiedName;
-		}else if (metadata.name === null){
-			var arr = f.__metadata__.fullyQualifiedName.split (".");
-			delete namespace.using[arr[arr.length  - 1]];
 		}
 		
 		if (metadata.properties === undefined && f.__metadata__.properties){
