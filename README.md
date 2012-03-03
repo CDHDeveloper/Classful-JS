@@ -49,7 +49,7 @@ console.log (new B ("a").a ()); //prints: Letter a
 #### Documentation ####
 
 [Usage](https://github.com/Gagle/Classful-JS/wiki/Usage)  
-[Advanced topics](https://github.com/Gagle/Classful-JS/wiki/Advanced-topics)
+[Advanced topics](https://github.com/Gagle/Classful-JS/wiki/Advanced-topics)  
 [Reference](https://github.com/Gagle/Classful-JS/wiki/Reference)  
 [Change log](https://github.com/Gagle/Classful-JS/wiki/Change-log)
 [MIT License](https://github.com/Gagle/Classful-JS/blob/master/LICENSE)
