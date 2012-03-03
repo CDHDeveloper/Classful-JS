@@ -336,7 +336,7 @@ var Class = (function (){
 				metadata.properties = changes.properties;
 			}
 			
-			if (changes.augment !== undefined){
+			if (changes.augment){
 				if (!metadata.properties){
 					metadata.properties = f.__metadata__.properties;
 				}
