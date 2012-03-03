@@ -1,5 +1,5 @@
 QUnit.test ("Class update", function (){
-	QUnit.expect (21);
+	QUnit.expect (22);
 	
 	Class.namespace ("test.class_update");
 	
@@ -12,6 +12,13 @@ QUnit.test ("Class update", function (){
 	});
 	
 	QUnit.ok (Class.getClassByName ("ClassTestB") === A && Class.getClassByName ("ClassTestA") === null, "Class update (name).");
+	
+	var A = Class.create ();
+	Class.update (A, {
+		name: "ClassA"
+	});
+	
+	QUnit.ok (Class.getClassByName ("ClassA") === A, "Class update (name).");
 	
 	A = Class.create ({
 		name: "ClassTestA2"
