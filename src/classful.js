@@ -5,9 +5,9 @@
  * @author Gabriel Llamas
  * @created 16/02/2012
  * @modified 03/03/2012
- * @version 1.0r3
+ * @version 1.0r4
  */
-(function (holder){
+(function (window){
 "use strict";
 
 var Class = (function (){
@@ -20,13 +20,13 @@ var Class = (function (){
 			};
 		}
 	
-		var initSingleton = false;
+		metadata.initSingleton = false;
 		var Class = function (){
-			if (metadata.singleton && !initSingleton){
+			if (Class.__metadata__.singleton && !metadata.initSingleton){
 				throw "Cannot instantiate a singleton. Use getInstance() method instead.";
 			}
 			
-			var o = (this !== undefined) ? this : Object.create (Class.prototype);
+			var o = (this !== undefined && this !== window) ? this : Object.create (Class.prototype);
 			
 			metadata.self = o;
 			metadata.instantiating = true;
@@ -42,20 +42,7 @@ var Class = (function (){
 		};
 		
 		if (metadata.singleton){
-			Object.defineProperty (Class, "getInstance", {
-				value: (function (){
-					var instance;
-					return function (){
-						if (!instance){
-							initSingleton = true;
-							instance = new Class ();
-							initSingleton = false;
-						}
-						return instance;
-					};
-				})(),
-				enumerable: true
-			});
+			defineSingletonProperty (Class, metadata);
 		}
 		
 		Object.defineProperty (Class, "__metadata__", {
@@ -67,7 +54,8 @@ var Class = (function (){
 				},
 				singleton: {
 					value: metadata.singleton,
-					enumerable: true
+					enumerable: true,
+					writable: true
 				},
 				properties: {
 					value: metadata.properties,
@@ -160,7 +148,35 @@ var Class = (function (){
 		}
 	};
 	
+	var defineSingletonProperty = function (f, metadata){
+		Object.defineProperty (f, "getInstance", {
+			value: (function (){
+				var instance;
+				return function (){
+					if (!instance){
+						metadata.initSingleton = true;
+						instance = new f ();
+						metadata.initSingleton = false;
+					}
+					return instance;
+				};
+			})(),
+			enumerable: true,
+			configurable: true
+		});
+	};
+	
 	var rebuild = function (f, metadata){
+		if (metadata.singleton !== undefined && metadata.singleton !== f.__metadata__.singleton){
+			if (metadata.singleton){
+				defineSingletonProperty (f, metadata);
+				f.__metadata__.singleton = true;
+			}else{
+				delete f.getInstance;
+				f.__metadata__.singleton = false;
+			}
+		}
+		
 		if (!metadata.init){
 			f.__metadata__.defaultConstructor = true;
 			metadata.init = function (){
@@ -251,10 +267,6 @@ var Class = (function (){
 			}
 		}
 		
-		if (clazz.__metadata__.singleton){
-			throw "Cannot extend a singleton.";
-		}
-		
 		return clazz;
 	};
 	
@@ -290,6 +302,9 @@ var Class = (function (){
 				
 				if (definition.extend !== undefined){
 					metadata.extend = searchClass (definition.extend);
+					if (metadata.extend.__metadata__.singleton){
+						throw "Cannot extend a singleton.";
+					}
 				}
 			}
 			
@@ -324,7 +339,8 @@ var Class = (function (){
 				fullyQualifiedName: undefined,
 				name: changes.name,
 				properties:  undefined,
-				init: f.__metadata__.init
+				init: f.__metadata__.init,
+				singleton: undefined
 			};
 			
 			if (changes.name !== undefined){
@@ -349,10 +365,14 @@ var Class = (function (){
 				}
 			}
 			
+			if (changes.singleton !== undefined){
+				metadata.singleton = changes.singleton;
+			}
+			
 			rebuild (f, metadata);
 		}
 	};
 })();
 
-holder.Class = Class;
+window.Class = Class;
 })(this);

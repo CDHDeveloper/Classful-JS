@@ -1,5 +1,5 @@
 QUnit.test ("Class update", function (){
-	QUnit.expect (22);
+	QUnit.expect (24);
 	
 	Class.namespace ("test.class_update");
 	
@@ -29,6 +29,34 @@ QUnit.test ("Class update", function (){
 	});
 	
 	QUnit.ok (Class.getClassByName ("ClassTestA2") === null, "Class update (name), null.");
+	
+	A = Class.create ({
+		singleton: true
+	});
+
+	Class.update (A, {
+		singleton: false
+	});
+	
+	try{
+		new A ();
+		QUnit.ok (A.getInstance === undefined, "Class update (singleton).");
+	}catch (e){
+		QUnit.ok (false, "Class update (singleton).");
+	}
+	
+	A = Class.create ();
+
+	Class.update (A, {
+		singleton: true
+	});
+	
+	try{
+		new A ();
+		QUnit.ok (false, "Class update (singleton).");
+	}catch (e){
+		QUnit.ok (A.getInstance !== undefined, "Class update (singleton).");
+	}
 	
 	A = Class.create ({
 		properties: {

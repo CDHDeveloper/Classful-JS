@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8"/>
+	
+	<script type="text/javascript" src="../src/classful.js"></script>
+	<script type="text/javascript">
+		var loops = 10000;
+		var runs = 100;
+		var average = 0;
+		
+		console.log ("Runs: " + runs);
+		
+		for (var r=0; r<runs; r++){
+			var start = new Date ().getTime ();
+			
+			for (var i=0; i<loops; i++){
+				var A = Class.create ({
+					constructor: function (a){
+						this._a = a;
+					},
+					properties: {
+						a: function (){
+							return this._a;
+						}
+					}
+				});
+
+				var B = Class.create ({
+					name: "B",
+					extend: A,
+					constructor: function (a, b){
+						this.__super__ (a);
+						this.b = b;
+					},
+					properties: {
+						a: function (){
+							return "From B > " + this.__super__.a ();
+						},
+						b: null
+					}
+				});
+
+				var C = Class.create ({
+					extend: "B",
+					constructor: function (a, b){
+						this.__super__ (a, b);
+					},
+					properties: {
+						a: function (){
+							return "a";
+						},
+						c: function (){
+							return "From C > " + this.__super__.a ();
+						}
+					}
+				});
+			}
+			
+			var diff = new Date ().getTime () - start;
+			average += diff;
+			
+			console.log ("loops: " + loops + ", time: " + diff + "ms");
+		}
+		
+		average /= runs;
+		
+		console.log ("Average: " + average + "ms");
+	</script>
+</head>
+
+<body>
+</body>
+</html>
