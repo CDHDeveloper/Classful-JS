@@ -4,8 +4,8 @@
  *
  * @author Gabriel Llamas
  * @created 16/02/2012
- * @modified 02/03/2012
- * @version 1.0
+ * @modified 03/03/2012
+ * @version 1.0r3
  */
 (function (holder){
 "use strict";
