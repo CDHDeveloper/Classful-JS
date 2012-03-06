@@ -4,10 +4,10 @@
  *
  * @author Gabriel Llamas
  * @created 16/02/2012
- * @modified 03/03/2012
- * @version 1.0r4
+ * @modified 06/03/2012
+ * @version 1.0r5
  */
-(function (window){
+(function (holder){
 "use strict";
 
 var Class = (function (){
@@ -374,5 +374,5 @@ var Class = (function (){
 	};
 })();
 
-window.Class = Class;
+holder.Class = Class;
 })(this);
