@@ -4,8 +4,8 @@
  *
  * @author Gabriel Llamas
  * @created 16/02/2012
- * @modified 06/03/2012
- * @version 1.0r5
+ * @modified 08/03/2012
+ * @version 1.0r6
  */
 (function (holder){
 "use strict";
@@ -281,6 +281,7 @@ var Class = (function (){
 			};
 			
 			var save = false;
+			var cb = false;
 			
 			if (definition){
 				if (definition.singleton !== undefined){
@@ -306,12 +307,20 @@ var Class = (function (){
 						throw "Cannot extend a singleton.";
 					}
 				}
+				
+				if (definition.onCreate !== undefined){
+					cb = true;
+				}
 			}
 			
 			var f = build (metadata);
 			
 			if (save){
 				namespace.using[definition.name] = f;
+			}
+			
+			if (cb){
+				definition.onCreate (f);
 			}
 			
 			return f;
@@ -370,6 +379,10 @@ var Class = (function (){
 			}
 			
 			rebuild (f, metadata);
+			
+			if (changes.onUpdate){
+				changes.onUpdate (f);
+			}
 		}
 	};
 })();

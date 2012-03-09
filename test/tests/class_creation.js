@@ -1,5 +1,5 @@
 QUnit.test ("Class creation", function (){
-	QUnit.expect (9);
+	QUnit.expect (10);
 	
 	Class.namespace ();
 	
@@ -156,4 +156,13 @@ QUnit.test ("Class creation", function (){
 	}catch (e){
 		QUnit.ok (true, "Cannot extend a singleton.");
 	}
+	
+	Class.create ({
+		properties: {
+			a: 2
+		},
+		onCreate: function (c){
+			QUnit.ok (new c ().a === 2, "onCreate().");
+		}
+	});
 });

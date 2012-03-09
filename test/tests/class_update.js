@@ -1,5 +1,5 @@
 QUnit.test ("Class update", function (){
-	QUnit.expect (24);
+	QUnit.expect (25);
 	
 	Class.namespace ("test.class_update");
 	
@@ -248,4 +248,10 @@ QUnit.test ("Class update", function (){
 	QUnit.ok (new A ().a () === "aaa", "Class update (augment override properties) before class instantiation.");
 	QUnit.ok (a.a () === "aaa", "Class update (augment override properties) after class instantiation.");
 	QUnit.ok (a.b () === "b", "Class update (augment properties) after class instantiation.");
+	
+	Class.update (A, {
+		onUpdate: function (c){
+			QUnit.ok (true, "onUpdate().");
+		}
+	});
 });
