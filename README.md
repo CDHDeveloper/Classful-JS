@@ -3,7 +3,7 @@ Classful JS
 
 #### The definitive JavaScript class library ####
 
-Version: 1.0 revision 6
+Version: 1.1
 
 *Classful JS* is a library that eases the manipulation and usage of JavaScript prototypes.
 
@@ -11,7 +11,7 @@ This library aims to provide a simple, lightweight and easy to use class module.
 
 There are some other JavaScript class libraries out in the market but they lack in some points:
 
-* Class modifications during run-time. They can't modify the classes, with *Classful JS* you can.
+* Class modifications during run-time. They can't modify the classes, with *Classful JS* you can with some limitations.
 * Partial inheritance. Most libraries can only call the super constructor, but what happens if you are overriding an inherited property? You probably want to call the super property. With *Classful JS* you can achieve this and more.
 * Complexity. Some libraries tend to be huge, heavy, with a lot of features that you probably will never use. For some reason they want to convert a dynamic language like JavaScript, into a static language like Java or C#. *Classful JS* has been designed to be simple and easy to use, with just the necessary features to wrap the `prototype` property.  
 * Ugly and messy syntax. If you're writing JavaScript code why some libraries try to simulate the syntax of other languages? If you're creating a class why some libraries create them improperly from the design and usability points of view? *Classful JS* prioritizes a good design.
@@ -35,7 +35,7 @@ var A = Class.create ({
 var B = Class.create ({
 	extend: A,
 	constructor: function (a){
-		this.__super__ (a);
+		this.__super__.constructor (a);
 	},
 	properties: {
 		a: function (){
@@ -44,8 +44,8 @@ var B = Class.create ({
 	}
 });
 
-console.log (new B ("a").a ()); //prints: Letter a
-console.log (new B () instanceof A && new B () instanceof B); //prints: true
+console.log (new B ("a").a ()); //Prints: Letter a
+console.log (new B () instanceof A && new B () instanceof B); //Prints: true
 ```
 
 #### Documentation ####

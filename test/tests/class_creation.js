@@ -1,14 +1,5 @@
 QUnit.test ("Class creation", function (){
-	QUnit.expect (10);
-	
-	Class.namespace ();
-	
-	var Test = Class.create ({
-		name: "Test"
-	});
-	QUnit.ok (Class.getClassByName ("Test") === Test, "Class creation in default package (root).");
-	
-	Class.namespace ("test.class_creation");
+	QUnit.expect (8);
 	
 	var A = Class.create ({
 		constructor: function (a){
@@ -24,7 +15,7 @@ QUnit.test ("Class creation", function (){
 	var B = Class.create ({
 		extend: A,
 		constructor: function (a, b){
-			this.__super__ (a);
+			this.__super__.constructor (a);
 			this._b = b;
 		},
 		properties: {
@@ -32,7 +23,7 @@ QUnit.test ("Class creation", function (){
 				return "B: " + this.__super__.a ();
 			},
 			b: function (){
-				return this._b;
+				return this.__super__.c;
 			}
 		}
 	});
@@ -40,99 +31,31 @@ QUnit.test ("Class creation", function (){
 	var C = Class.create ({
 		extend: B,
 		constructor: function (a, b, c){
-			this.__super__ (a, b);
+			this.__super__.constructor (a, b);
 			this._c = c;
 		},
 		properties: {
 			a: function (){
 				return "C: " + this.__super__.a ();
 			},
-			b: function (){
-				return "C: " + this.__super__.b ();
-			},
 			c: function (){
-				return this._c;
+				return this.__super__.a ();
 			}
 		}
 	});
 	
 	QUnit.ok (new C (1, 2, 3).a () === "C: B: 1", "Inheritance chain with multiple superclasses.");
-	
-	A = Class.create ();
-
-	B = Class.create ({
-		extend: A,
-		properties: {
-			b: function (){
-				this.__super__ ();
-			}
-		}
-	});
-	
-	try{
-		new B ().b ();
-		QUnit.ok (false, "Cannot call super constructor called inside a method.");
-	}catch (e){
-		QUnit.ok (true, "Cannot call super constructor called inside a method.");
-	}
-	
-	A = Class.create ();
-
-	B = Class.create ({
-		extend: A,
-		constructor: function (){}
-	});
-
-	C = Class.create ({
-		extend: B,
-		constructor: function (){
-			this.__super__ ();
-		}
-	});
-	
-	try{
-		C ();
-		QUnit.ok (true, "If the super class has the default constructor, the subclass does not need to call the super constructor");
-	}catch (e){
-		QUnit.ok (false, "If the super class has the default constructor, the subclass does not need to call the super constructor");
-	}
-	
-	A = Class.create ({
-		constructor: function (){}
-	});
-
-	B = Class.create ({
-		extend: A,
-		constructor: function (){}
-	});
-
-	C = Class.create ({
-		extend: B,
-		constructor: function (){
-			this.__super__ ();
-		}
-	});
-	
-	try{
-		new C ();
-		QUnit.ok (false, "The super constructor must be called if the super class defines a constructor.");
-	}catch (e){
-		QUnit.ok (true, "The super constructor must be called if the super class defines a constructor.");
-	}
+	QUnit.ok (new C (1, 2, 3).b () === undefined, "Inheritance chain with multiple superclasses.");
+	QUnit.ok (new C (1, 2, 3).c () === "B: 1", "Inheritance chain with multiple superclasses.");
 	
 	A = Class.create ({
 		constructor: function (){
-			this.__super__ ();
+			this.a = "a";
 		}
 	});
 	
-	try{
-		new A ();
-		QUnit.ok (false, "Cannot call the super constructor if the class does not extend from any other class.");
-	}catch (e){
-		QUnit.ok (true, "Cannot call the super constructor if the class does not extend from any other class.");
-	}
-	
+	QUnit.ok (A ().a === "a", "Instantiation without new.");
+
 	A = Class.create ({
 		singleton: true,
 		constructor: function (){
@@ -142,10 +65,11 @@ QUnit.test ("Class creation", function (){
 	
 	try{
 		new A ();
-		QUnit.ok (false, "Cannot instantiate a singleton.");
+		QUnit.ok (false, "Cannot instantiate a singleton (is not a constructor).");
 	}catch (e){
-		QUnit.ok (true, "Cannot instantiate a singleton.");
+		QUnit.ok (true, "Cannot instantiate a singleton (is not a constructor).");
 	}
+	
 	QUnit.ok (A.getInstance ().a === "a", "Singleton getInstance().");
 	
 	try{

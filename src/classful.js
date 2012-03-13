@@ -4,388 +4,127 @@
  *
  * @author Gabriel Llamas
  * @created 16/02/2012
- * @modified 08/03/2012
- * @version 1.0r6
+ * @modified 13/03/2012
+ * @version 1.1
  */
 (function (holder){
 "use strict";
 
-var Class = (function (){
-	var build = function (metadata){
-		var defaultConstructor = false;
-		if (!metadata.init){
-			defaultConstructor = true;
-			metadata.init = function (){
-				if (Class.__metadata__.extend) this.__super__ ();
-			};
-		}
-	
-		metadata.initSingleton = false;
+holder["Class"] = {
+	create: function (settings){
 		var Class = function (){
-			if (Class.__metadata__.singleton && !metadata.initSingleton){
-				throw "Cannot instantiate a singleton. Use getInstance() method instead.";
+			if (this !== undefined && this !== window){
+				if (constructor) constructor.apply (this, arguments);
+			}else{
+				var o = Object.create (Class.prototype);
+				if (constructor) constructor.apply (o, arguments);
+				return o;
 			}
-			
-			var o = (this !== undefined && this !== window) ? this : Object.create (Class.prototype);
-			
-			metadata.self = o;
-			metadata.instantiating = true;
-			
-			Class.__metadata__.init.apply (o, arguments);
-			
-			metadata.instantiating = false;
-			
-			if (metadata.sup && !metadata.sup.__metadata__.defaultConstructor){
-				throw "The constructor of the super class must be called explicitly.";
-			}
-			return o;
 		};
 		
-		if (metadata.singleton){
-			defineSingletonProperty (Class, metadata);
-		}
+		var constructor;
 		
-		Object.defineProperty (Class, "__metadata__", {
-			value: Object.defineProperties (Object.create (Object.prototype), {
-				fullyQualifiedName: {
-					value: metadata.fullyQualifiedName,
-					enumerable: true,
-					writable: true
-				},
-				singleton: {
-					value: metadata.singleton,
-					enumerable: true,
-					writable: true
-				},
-				properties: {
-					value: metadata.properties,
-					enumerable: true,
-					writable: true
-				},
-				init: {
-					value: metadata.init,
-					enumerable: true,
-					writable: true
-				},
-				defaultConstructor: {
-					value: defaultConstructor,
-					enumerable: true,
-					writable: true
-				},
-				extend: {
-					value: metadata.extend,
-					enumerable: true
+		if (settings){
+			var p = settings["constructor"];
+			if (p !== Object){
+				constructor = p;
+			}
+
+			var extend = settings["extend"];
+			if (extend){
+				var type = typeof extend;
+				if (type === "function"){
+					Class.prototype = Object.create (extend.prototype);
+					Object.defineProperties (Class.prototype, {
+						"constructor": {
+							value: Class,
+							enumerable: false
+						},
+						"__super__": {
+							value: extend.prototype,
+							enumerable: false
+						}
+					});
+				}else if (type === "object"){
+					throw "Cannot extend a singleton.";
+				}else{
+					throw "Invalid class to extend.";
 				}
-			})
-		});
-		
-		if (metadata.extend){
-			buildPrototype (Class, metadata);
-		}
-		
-		for (var p in metadata.properties){
-			Class.prototype[p] = metadata.properties[p];
+			}
+			
+			p = settings["properties"];
+			if (p){
+				if (extend){
+					for (var i in p){
+						Class.prototype[i] = p[i];
+					}
+				}else{
+					Class.prototype = p;
+					Object.defineProperty (Class.prototype, "constructor", {
+						value: Class,
+						enumerable: false
+					});
+				}
+			}
+			
+			p = settings["singleton"];
+			if (p){
+				var proto = Class.prototype;
+				Class = {
+					"getInstance": (function (){
+						var instance;
+						return function (){
+							if (!instance){
+								instance = Object.create (Class.prototype);
+								if (constructor) constructor.call (instance);
+								this["getInstance"] = function (){
+									return instance;
+								};
+								return instance;
+							}
+						};
+					})()
+				};
+				Class.prototype = proto;
+			}
+			
+			p = settings["onCreate"];
+			if (p){
+				p (Class);
+			}
 		}
 		
 		return Class;
-	};
-	
-	var buildPrototype = function (f, metadata){
-		f.prototype = Object.create (metadata.extend.prototype);
-		Object.defineProperties (f.prototype, {
-			constructor: {
-				value: f
-			},
-			__super__: {
-				value: (function (){
-					var sup = metadata.extend;
-					var curr;
-					return function (){
-						if (!metadata.instantiating){
-							throw "Super constructor can only be called inside the constructor.";
-						}
-						
-						if (!sup){
-							throw "Cannot call the super constructor because the class does not extend from any" +
-									" other class.";
-						}
-						
-						curr = sup;
-						sup = sup.__metadata__.extend;
-						metadata.sup = sup;
-						curr.prototype.constructor.apply (this, arguments);
-						
-						if (!sup) sup = metadata.extend;
-					};
-				})(),
-				configurable: true
-			}
-		});
+	},
+	update: function (f, settings){
+		var type = typeof f;
 		
-		var sup = metadata.extend;
-		for (var p in metadata.extend.prototype){
-			var v = metadata.extend.prototype[p];
-			if (typeof v === "function"){
-				Object.defineProperty (f.prototype.__super__, p, {
-					value: (function (p){
-						var curr;
-						return function (){
-							if (!sup){
-								throw "Cannot call the super property \"" + p + "\" because the class does not" +
-										" extend from any other class.";
-							}
-							
-							curr = sup;
-							sup = sup.__metadata__.extend;
-							var r = curr.prototype[p].apply (metadata.self, arguments);
-							sup = curr;
-							
-							return r;
-						};
-					})(p)
-				});
+		var p = settings["properties"];
+		if (p !== undefined){
+			for (var i in f.prototype){
+				if (f.prototype["hasOwnProperty"](i)){
+					delete f.prototype[i];
+				}
 			}
-		}
-	};
-	
-	var defineSingletonProperty = function (f, metadata){
-		Object.defineProperty (f, "getInstance", {
-			value: (function (){
-				var instance;
-				return function (){
-					if (!instance){
-						metadata.initSingleton = true;
-						instance = new f ();
-						metadata.initSingleton = false;
-					}
-					return instance;
-				};
-			})(),
-			enumerable: true,
-			configurable: true
-		});
-	};
-	
-	var rebuild = function (f, metadata){
-		if (metadata.singleton !== undefined && metadata.singleton !== f.__metadata__.singleton){
-			if (metadata.singleton){
-				defineSingletonProperty (f, metadata);
-				f.__metadata__.singleton = true;
-			}else{
-				delete f.getInstance;
-				f.__metadata__.singleton = false;
+			
+			if (p !== null){
+				for (var i in p){
+					f.prototype[i] = p[i];
+				}
 			}
 		}
 		
-		if (!metadata.init){
-			f.__metadata__.defaultConstructor = true;
-			metadata.init = function (){
-				if (f.__metadata__.extend) this.__super__ ();
-			};
-		}
-		
-		f.__metadata__.init = metadata.init;
-		
-		if (metadata.fullyQualifiedName !== undefined &&
-				metadata.fullyQualifiedName !== f.__metadata__.fullyQualifiedName){
-			if (metadata.fullyQualifiedName){
-				if (f.__metadata__.fullyQualifiedName){
-					var arr = f.__metadata__.fullyQualifiedName.split (".");
-					delete namespace.using[arr[arr.length  - 1]];
-				}
-				namespace.using[metadata.name] = f;
-				f.__metadata__.fullyQualifiedName = metadata.fullyQualifiedName;
-			}else{
-				var arr = f.__metadata__.fullyQualifiedName.split (".");
-				delete namespace.using[arr[arr.length  - 1]];
+		p = settings["augment"];
+		if (p){
+			for (var i in p){
+				f.prototype[i] = p[i];
 			}
 		}
 		
-		if (metadata.properties === undefined && f.__metadata__.properties){
-			metadata.properties = f.__metadata__.properties;
+		p = settings["onUpdate"];
+		if (p){
+			p (f);
 		}
-		
-		if (metadata.properties !== undefined){
-			if (metadata.properties || metadata.properties === null){
-				for (var p in f.__metadata__.properties){
-					delete f.prototype[p];
-				}
-			}
-			
-			if (metadata.properties !== null){
-				for (var p in metadata.properties){
-					f.prototype[p] = metadata.properties[p];
-				}
-			}else{
-				metadata.properties = {};
-			}
-			
-			f.__metadata__.properties = metadata.properties;
-		}
-	};
-	
-	var functions = {};
-	
-	var buildFullyQualifiedName = function (name){
-		if (!(/^[a-z_][\w_]*$/i.test (name))){
-			throw "Invalid class name.";
-		}
-		return namespace.string ? namespace.string + "." + name : name;
-	};
-	
-	var getClassByName = function (name){
-		var f = namespace (namespace.using, name, false) || namespace (functions, name, false);
-		if (f instanceof Function){
-			return f;
-		}
-		
-		return null;
-	};
-	
-	var namespace = function (root, chain, write){
-		if (write === undefined) write = false;
-		
-		var levels = chain.split (".");
-		var o = root;
-
-		for (var i=0, len=levels.length; i<len; i++){
-			var t = o[levels[i]] || ((write) ? {} : null);
-			if (!t) return null;
-			o = o[levels[i]] = t;
-		}
-		
-		return o;
-	};
-	namespace.using = functions;
-	namespace.string = "";
-	
-	var searchClass = function (clazz){
-		if (typeof clazz === "string"){
-			clazz = getClassByName (clazz);
-			if (!clazz){
-				throw "Class not found.";
-			}
-		}
-		
-		return clazz;
-	};
-	
-	return {
-		create: function (definition){
-			var metadata = {
-				fullyQualifiedName: null,
-				properties: {},
-				init: null,
-				extend: null,
-				singleton: false
-			};
-			
-			var save = false;
-			var cb = false;
-			
-			if (definition){
-				if (definition.singleton !== undefined){
-					metadata.singleton = definition.singleton;
-				}
-				
-				if (definition.name !== undefined){
-					metadata.fullyQualifiedName = buildFullyQualifiedName (definition.name);
-					save = true;
-				}
-				
-				if (definition.constructor !== undefined && definition.constructor !== Object){
-					metadata.init = definition.constructor;
-				}
-				
-				if (definition.properties !== undefined){
-					metadata.properties = definition.properties;
-				}
-				
-				if (definition.extend !== undefined){
-					metadata.extend = searchClass (definition.extend);
-					if (metadata.extend.__metadata__.singleton){
-						throw "Cannot extend a singleton.";
-					}
-				}
-				
-				if (definition.onCreate !== undefined){
-					cb = true;
-				}
-			}
-			
-			var f = build (metadata);
-			
-			if (save){
-				namespace.using[definition.name] = f;
-			}
-			
-			if (cb){
-				definition.onCreate (f);
-			}
-			
-			return f;
-		},
-		getClassByName: getClassByName,
-		getNamespace: function (chain){
-			if (!chain) return functions;
-			var n = namespace (functions, chain, false);
-			return n instanceof Function ? null : n;
-		},
-		namespace: function (chain){
-			if (!chain){
-				namespace.string = "";
-				namespace.using = functions;
-			}else{
-				namespace.string = chain;
-				namespace.using = namespace (functions, chain, true);
-			}
-		},
-		update: function (f, changes){
-			if (!changes) return;
-			f = searchClass (f);
-			
-			var metadata = {
-				fullyQualifiedName: undefined,
-				name: changes.name,
-				properties:  undefined,
-				init: f.__metadata__.init,
-				singleton: undefined
-			};
-			
-			if (changes.name !== undefined){
-				metadata.fullyQualifiedName = changes.name === null ? null : buildFullyQualifiedName (changes.name);
-			}
-			
-			if (changes.constructor !== undefined && changes.constructor !== Object){
-				metadata.init = changes.constructor;
-			}
-			
-			if (changes.properties !== undefined){
-				metadata.properties = changes.properties;
-			}
-			
-			if (changes.augment){
-				if (!metadata.properties){
-					metadata.properties = f.__metadata__.properties;
-				}
-				
-				for (var p in changes.augment){
-					metadata.properties[p] = changes.augment[p];
-				}
-			}
-			
-			if (changes.singleton !== undefined){
-				metadata.singleton = changes.singleton;
-			}
-			
-			rebuild (f, metadata);
-			
-			if (changes.onUpdate){
-				changes.onUpdate (f);
-			}
-		}
-	};
-})();
-
-holder.Class = Class;
+	}
+};
 })(this);

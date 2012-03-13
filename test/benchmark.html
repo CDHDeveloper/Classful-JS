@@ -3,72 +3,84 @@
 <head>
 	<meta charset="UTF-8"/>
 	
-	<script type="text/javascript" src="../build/classful-1.0r6.js"></script>
+	<script type="text/javascript" src="../build/classful-1.1.js"></script>
+	<script type="text/javascript" src="res/lib/JohnResig.js"></script>
+	
+	<script type="text/javascript" src="res/benchmarks/default.js"></script>
+	<script type="text/javascript" src="res/benchmarks/classful.js"></script>
+	<script type="text/javascript" src="res/benchmarks/JohnResig.js"></script>
 	<script type="text/javascript">
+		var Benchmark = (function (){
+			var _loops;
+			var _runs;
+			var _strategy;
+			
+			return Class.create ({
+				constructor: function (loops, runs, strategy){
+					_loops = loops;
+					_runs = runs;
+					_strategy = strategy;
+				},
+				properties: {
+					run: function (){
+						var average = 0;
+			
+						for (var r=0; r<_runs; r++){
+							var start = new Date ().getTime ();
+							
+							for (var i=0; i<_loops; i++){
+								_strategy.run ();
+							}
+							
+							average += new Date ().getTime () - start;
+						}
+						
+						average /= _runs;
+						console.log ("Average: " + average + "ms");
+					}
+				}
+			});
+		})();
+		
 		var loops = 10000;
 		var runs = 100;
-		var average = 0;
 		
 		console.log ("Runs: " + runs);
+		console.log ("Loops/run: " + loops);
 		
-		for (var r=0; r<runs; r++){
-			var start = new Date ().getTime ();
-			
-			for (var i=0; i<loops; i++){
-				var A = Class.create ({
-					constructor: function (a){
-						this._a = a;
-					},
-					properties: {
-						a: function (){
-							return this._a;
-						}
-					}
-				});
-
-				var B = Class.create ({
-					name: "B",
-					extend: A,
-					constructor: function (a, b){
-						this.__super__ (a);
-						this.b = b;
-					},
-					properties: {
-						a: function (){
-							return "From B > " + this.__super__.a ();
-						},
-						b: null
-					}
-				});
-
-				var C = Class.create ({
-					extend: "B",
-					constructor: function (a, b){
-						this.__super__ (a, b);
-					},
-					properties: {
-						a: function (){
-							return "a";
-						},
-						c: function (){
-							return "From C > " + this.__super__.a ();
-						}
-					}
-				});
-			}
-			
-			var diff = new Date ().getTime () - start;
-			average += diff;
-			
-			console.log ("loops: " + loops + ", time: " + diff + "ms");
+		function benchDefaultDefinition (){
+			new Benchmark (loops, runs, new DefaultDefinition ()).run ();
+		}
+	
+		function benchClassfulDefinition (){
+			new Benchmark (loops, runs, new ClassfulDefinition ()).run ();
 		}
 		
-		average /= runs;
+		function benchJohnResigDefinition (){
+			new Benchmark (loops, runs, new JohnResigDefinition ()).run ();
+		}
 		
-		console.log ("Average: " + average + "ms");
+		function benchDefaultInstantiation (){
+			new Benchmark (loops, runs, new DefaultInstantiation ()).run ();
+		}
+		
+		function benchClassfulInstantiation (){
+			new Benchmark (loops, runs, new ClassfulInstantiation ()).run ();
+		}
+		
+		function benchJohnResigInstantiation (){
+			new Benchmark (loops, runs, new JohnResigInstantiation ()).run ();
+		}
 	</script>
 </head>
 
 <body>
+	<input type="button" value="Run bench: Class definition (default)" onclick="benchDefaultDefinition ();"/><br/>
+	<input type="button" value="Run bench: Class definition (Classful JS)" onclick="benchClassfulDefinition ();"/><br/>
+	<input type="button" value="Run bench: Class definition (John Resig)" onclick="benchJohnResigDefinition ();"/><br/><br/>
+	
+	<input type="button" value="Run bench: Class instantiation (default)" onclick="benchDefaultInstantiation ();"/><br/>
+	<input type="button" value="Run bench: Class instantiation (Classful JS)" onclick="benchClassfulInstantiation ();"/><br/>
+	<input type="button" value="Run bench: Class instantiation (John Resig)" onclick="benchJohnResigInstantiation ();"/>
 </body>
 </html>

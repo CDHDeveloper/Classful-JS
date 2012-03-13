@@ -1,98 +1,7 @@
 QUnit.test ("Class update", function (){
-	QUnit.expect (25);
-	
-	Class.namespace ("test.class_update");
+	QUnit.expect (16);
 	
 	var A = Class.create ({
-		name: "ClassTestA"
-	});
-	
-	Class.update (A, {
-		name: "ClassTestB"
-	});
-	
-	QUnit.ok (Class.getClassByName ("ClassTestB") === A && Class.getClassByName ("ClassTestA") === null, "Class update (name).");
-	
-	var A = Class.create ();
-	Class.update (A, {
-		name: "ClassA"
-	});
-	
-	QUnit.ok (Class.getClassByName ("ClassA") === A, "Class update (name).");
-	
-	A = Class.create ({
-		name: "ClassTestA2"
-	});
-	
-	Class.update (A, {
-		name: null
-	});
-	
-	QUnit.ok (Class.getClassByName ("ClassTestA2") === null, "Class update (name), null.");
-	
-	A = Class.create ({
-		singleton: true
-	});
-
-	Class.update (A, {
-		singleton: false
-	});
-	
-	try{
-		new A ();
-		QUnit.ok (A.getInstance === undefined, "Class update (singleton).");
-	}catch (e){
-		QUnit.ok (false, "Class update (singleton).");
-	}
-	
-	A = Class.create ();
-
-	Class.update (A, {
-		singleton: true
-	});
-	
-	try{
-		new A ();
-		QUnit.ok (false, "Class update (singleton).");
-	}catch (e){
-		QUnit.ok (A.getInstance !== undefined, "Class update (singleton).");
-	}
-	
-	A = Class.create ({
-		properties: {
-			a: function (){
-				return this._a;
-			}
-		}
-	});
-	
-	var a = new A ();
-	
-	Class.update (A, {
-		constructor: function (){
-			this._a = "a";
-		}
-	});
-	
-	QUnit.ok (new A ().a () === "a", "Class update (constructor) before class instantiation.");
-	QUnit.ok (a.a () === undefined, "Class update (constructor) after class instantiation.");
-	
-	A = Class.create ({
-		constructor: function (){
-			this.a = "a";
-		}
-	});
-	
-	a = new A ();
-	
-	Class.update (A, {
-		constructor: null
-	});
-	
-	QUnit.ok (new A ().a === undefined, "Class update (constructor) before class instantiation, null.");
-	QUnit.ok (a.a === "a", "Class update (constructor) after class instantiation, null.");
-	
-	A = Class.create ({
 		constructor: function (){
 			this._a = "a";
 		},
@@ -106,7 +15,7 @@ QUnit.test ("Class update", function (){
 		}
 	});
 	
-	a = new A ();
+	var a = new A ();
 	
 	Class.update (A, {
 		properties: {
