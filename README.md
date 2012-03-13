@@ -51,7 +51,6 @@ console.log (new B () instanceof A && new B () instanceof B); //Prints: true
 #### Benchmark ####
 
 The following chart demonstrates that Classful JS is the fastest JavaScript class library.
-Details:
 
   * Loops: 10000.  
   * Runs: 100.  
