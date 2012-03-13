@@ -1,10 +1,10 @@
-var JohnResigDefinition = Class.create ({
+var PrototypeDefinition = Class.create ({
 	properties: {
 		run: function (){
 			var A = (function (){
 				var _a;
-				return JR.extend ({
-					init: function (a){
+				return PrototypeClass.create ({
+					initialize: function (a){
 						_a = a;
 					},
 					a: function (){
@@ -15,9 +15,9 @@ var JohnResigDefinition = Class.create ({
 			
 			var B = (function (){
 				var _b;
-				return A.extend ({
-					init: function (a, b){
-						this._super (a);
+				return PrototypeClass.create (A, {
+					initialize: function ($super, a, b){
+						$super (a);
 						_b = b;
 					},
 					b: function (){
@@ -28,9 +28,9 @@ var JohnResigDefinition = Class.create ({
 			
 			var C = (function (){
 				var _c;
-				return B.extend ({
-					init: function (a, b, c){
-						this._super (a, b);
+				return PrototypeClass.create (B, {
+					initialize: function ($super, a, b, c){
+						$super (a, b);
 						_c = c;
 					},
 					c: function (){
@@ -42,12 +42,12 @@ var JohnResigDefinition = Class.create ({
 	}
 });
 
-var JohnResigInstantiation = (function (){
+var PrototypeInstantiation = (function (){
 	var A = (function (){
 		var _a;
-		return JR.extend ({
-			init: function (a){
-				_a = 1;
+		return PrototypeClass.create ({
+			initialize: function (a){
+				_a = a;
 			},
 			a: function (){
 				return _a;
@@ -57,9 +57,9 @@ var JohnResigInstantiation = (function (){
 	
 	var B = (function (){
 		var _b;
-		return A.extend ({
-			init: function (a, b){
-				this._super (a);
+		return PrototypeClass.create (A, {
+			initialize: function ($super, a, b){
+				$super (a);
 				_b = b;
 			},
 			b: function (){
@@ -70,9 +70,9 @@ var JohnResigInstantiation = (function (){
 	
 	var C = (function (){
 		var _c;
-		return B.extend ({
-			init: function (a, b, c){
-				this._super (a, b);
+		return PrototypeClass.create (B, {
+			initialize: function ($super, a, b, c){
+				$super (a, b);
 				_c = c;
 			},
 			c: function (){

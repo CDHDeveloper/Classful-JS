@@ -5,7 +5,7 @@ var ClassfulDefinition = Class.create ({
 				var _a;
 				return Class.create ({
 					constructor: function (a){
-						_a = 1;
+						_a = a;
 					},
 					properties: {
 						a: function (){

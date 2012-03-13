@@ -1,10 +1,10 @@
-var JohnResigDefinition = Class.create ({
+var MooToolsDefinition = Class.create ({
 	properties: {
 		run: function (){
 			var A = (function (){
 				var _a;
-				return JR.extend ({
-					init: function (a){
+				return new MooToolsClass ({
+					initialize: function (a){
 						_a = a;
 					},
 					a: function (){
@@ -15,9 +15,10 @@ var JohnResigDefinition = Class.create ({
 			
 			var B = (function (){
 				var _b;
-				return A.extend ({
-					init: function (a, b){
-						this._super (a);
+				return new MooToolsClass ({
+					Extends: A,
+					initialize: function (a, b){
+						this.parent (a);
 						_b = b;
 					},
 					b: function (){
@@ -28,9 +29,10 @@ var JohnResigDefinition = Class.create ({
 			
 			var C = (function (){
 				var _c;
-				return B.extend ({
-					init: function (a, b, c){
-						this._super (a, b);
+				return new MooToolsClass ({
+					Extends: B,
+					initialize: function (a, b, c){
+						this.parent (a, b);
 						_c = c;
 					},
 					c: function (){
@@ -42,12 +44,12 @@ var JohnResigDefinition = Class.create ({
 	}
 });
 
-var JohnResigInstantiation = (function (){
+var MooToolsInstantiation = (function (){
 	var A = (function (){
 		var _a;
-		return JR.extend ({
-			init: function (a){
-				_a = 1;
+		return new MooToolsClass ({
+			initialize: function (a){
+				_a = a;
 			},
 			a: function (){
 				return _a;
@@ -57,9 +59,10 @@ var JohnResigInstantiation = (function (){
 	
 	var B = (function (){
 		var _b;
-		return A.extend ({
-			init: function (a, b){
-				this._super (a);
+		return new MooToolsClass ({
+			Extends: A,
+			initialize: function (a, b){
+				this.parent (a);
 				_b = b;
 			},
 			b: function (){
@@ -70,9 +73,10 @@ var JohnResigInstantiation = (function (){
 	
 	var C = (function (){
 		var _c;
-		return B.extend ({
-			init: function (a, b, c){
-				this._super (a, b);
+		return new MooToolsClass ({
+			Extends: B,
+			initialize: function (a, b, c){
+				this.parent (a, b);
 				_c = c;
 			},
 			c: function (){

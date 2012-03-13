@@ -3,12 +3,28 @@
 <head>
 	<meta charset="UTF-8"/>
 	
+	<script type="text/javascript" src="res/jquery-1.7.1.min.js"></script>
 	<script type="text/javascript" src="../build/classful-1.1.js"></script>
 	<script type="text/javascript" src="res/lib/JohnResig.js"></script>
+	<script type="text/javascript">JSCLASS_PATH = "res/lib/JSClass"</script>
+	<script type="text/javascript" src="res/lib/JSClass/loader-browser.js"></script>
+	<script type="text/javascript" src="res/lib/classy.js"></script>
+	<script type="text/javascript" src="res/lib/base2.js"></script>
+	<script type="text/javascript" src="res/lib/joose.js"></script>
+	<script type="text/javascript" src="res/lib/prototype.js"></script>
+	<script type="text/javascript" src="res/lib/mootools.js"></script>
 	
 	<script type="text/javascript" src="res/benchmarks/default.js"></script>
 	<script type="text/javascript" src="res/benchmarks/classful.js"></script>
 	<script type="text/javascript" src="res/benchmarks/JohnResig.js"></script>
+	<script type="text/javascript" src="res/benchmarks/JSClass.js"></script>
+	<script type="text/javascript" src="res/benchmarks/JSClass.js"></script>
+	<script type="text/javascript" src="res/benchmarks/classy.js"></script>
+	<script type="text/javascript" src="res/benchmarks/base2.js"></script>
+	<script type="text/javascript" src="res/benchmarks/joose.js"></script>
+	<script type="text/javascript" src="res/benchmarks/prototype.js"></script>
+	<script type="text/javascript" src="res/benchmarks/mootools.js"></script>
+	
 	<script type="text/javascript">
 		var Benchmark = (function (){
 			var _loops;
@@ -46,41 +62,65 @@
 		var runs = 100;
 		
 		console.log ("Runs: " + runs);
-		console.log ("Loops/run: " + loops);
+		console.log ("Loops per run: " + loops);
 		
-		function benchDefaultDefinition (){
-			new Benchmark (loops, runs, new DefaultDefinition ()).run ();
-		}
+		function benchDefaultDefinition (){ new Benchmark (loops, runs, new DefaultDefinition ()).run (); }
+		function benchDefaultInstantiation (){ new Benchmark (loops, runs, new DefaultInstantiation ()).run (); }
 	
-		function benchClassfulDefinition (){
-			new Benchmark (loops, runs, new ClassfulDefinition ()).run ();
+		function benchClassfulDefinition (){ new Benchmark (loops, runs, new ClassfulDefinition ()).run (); }
+		function benchClassfulInstantiation (){ new Benchmark (loops, runs, new ClassfulInstantiation ()).run (); }
+		
+		function benchJohnResigDefinition (){ new Benchmark (loops, runs, new JohnResigDefinition ()).run (); }
+		function benchJohnResigInstantiation (){ new Benchmark (loops, runs, new JohnResigInstantiation ()).run (); }
+		
+		function benchJSClassDefinition (){
+			JS.require ("JS.Class", function (){
+				new Benchmark (loops, runs, new JSClassDefinition ()).run ();
+			});
+		}
+		function benchJSClassInstantiation (){
+			JS.require ("JS.Class", function (){
+				JSClassInstantiation = JSClassInstantiation ();
+				new Benchmark (loops, runs, new JSClassInstantiation ()).run ();
+			});
 		}
 		
-		function benchJohnResigDefinition (){
-			new Benchmark (loops, runs, new JohnResigDefinition ()).run ();
-		}
+		function benchClassyDefinition (){ new Benchmark (loops, runs, new ClassyDefinition ()).run (); }
+		function benchClassyInstantiation (){ new Benchmark (loops, runs, new ClassyInstantiation ()).run (); }
 		
-		function benchDefaultInstantiation (){
-			new Benchmark (loops, runs, new DefaultInstantiation ()).run ();
-		}
+		function benchBase2Definition (){ new Benchmark (loops, runs, new Base2Definition ()).run (); }
+		function benchBase2Instantiation (){ new Benchmark (loops, runs, new Base2Instantiation ()).run (); }
 		
-		function benchClassfulInstantiation (){
-			new Benchmark (loops, runs, new ClassfulInstantiation ()).run ();
-		}
+		function benchJooseDefinition (){ new Benchmark (loops, runs, new JooseDefinition ()).run (); }
+		function benchJooseInstantiation (){ new Benchmark (loops, runs, new JooseInstantiation ()).run (); }
 		
-		function benchJohnResigInstantiation (){
-			new Benchmark (loops, runs, new JohnResigInstantiation ()).run ();
-		}
+		function benchPrototypeDefinition (){ new Benchmark (loops, runs, new PrototypeDefinition ()).run (); }
+		function benchPrototypeInstantiation (){ new Benchmark (loops, runs, new PrototypeInstantiation ()).run (); }
+		
+		function benchMooToolsDefinition (){ new Benchmark (loops, runs, new MooToolsDefinition ()).run (); }
+		function benchMooToolsInstantiation (){ new Benchmark (loops, runs, new MooToolsInstantiation ()).run (); }
 	</script>
 </head>
 
 <body>
-	<input type="button" value="Run bench: Class definition (default)" onclick="benchDefaultDefinition ();"/><br/>
+	<input type="button" value="Run bench: Class definition (Default)" onclick="benchDefaultDefinition ();"/><br/>
 	<input type="button" value="Run bench: Class definition (Classful JS)" onclick="benchClassfulDefinition ();"/><br/>
-	<input type="button" value="Run bench: Class definition (John Resig)" onclick="benchJohnResigDefinition ();"/><br/><br/>
+	<input type="button" value="Run bench: Class definition (John Resig)" onclick="benchJohnResigDefinition ();"/><br/>
+	<input type="button" value="Run bench: Class definition (JS.Class)" onclick="benchJSClassDefinition ();"/><br/>
+	<input type="button" value="Run bench: Class definition (Classy)" onclick="benchClassyDefinition ();"/><br/>
+	<input type="button" value="Run bench: Class definition (Base2)" onclick="benchBase2Definition ();"/><br/>
+	<input type="button" value="Run bench: Class definition (Joose)" onclick="benchJooseDefinition ();"/><br/>
+	<input type="button" value="Run bench: Class definition (Prototype)" onclick="benchPrototypeDefinition ();"/><br/>
+	<input type="button" value="Run bench: Class definition (MooTools)" onclick="benchMooToolsDefinition ();"/><br/><br/>
 	
-	<input type="button" value="Run bench: Class instantiation (default)" onclick="benchDefaultInstantiation ();"/><br/>
+	<input type="button" value="Run bench: Class instantiation (Default)" onclick="benchDefaultInstantiation ();"/><br/>
 	<input type="button" value="Run bench: Class instantiation (Classful JS)" onclick="benchClassfulInstantiation ();"/><br/>
-	<input type="button" value="Run bench: Class instantiation (John Resig)" onclick="benchJohnResigInstantiation ();"/>
+	<input type="button" value="Run bench: Class instantiation (John Resig)" onclick="benchJohnResigInstantiation ();"/><br/>
+	<input type="button" value="Run bench: Class instantiation (JS.Class)" onclick="benchJSClassInstantiation ();"/><br/>
+	<input type="button" value="Run bench: Class instantiation (Classy)" onclick="benchClassyInstantiation ();"/><br/>
+	<input type="button" value="Run bench: Class instantiation (Base2)" onclick="benchBase2Instantiation ();"/><br/>
+	<input type="button" value="Run bench: Class instantiation (Joose)" onclick="benchJooseInstantiation ();"/><br/>
+	<input type="button" value="Run bench: Class instantiation (Prototype)" onclick="benchPrototypeInstantiation ();"/><br/>
+	<input type="button" value="Run bench: Class instantiation (MooTools)" onclick="benchMooToolsInstantiation ();"/>
 </body>
 </html>

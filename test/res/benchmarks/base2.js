@@ -1,10 +1,12 @@
-var JohnResigDefinition = Class.create ({
+var Base2Definition = Class.create ({
 	properties: {
 		run: function (){
+			var Base = base2.Base;
+			
 			var A = (function (){
 				var _a;
-				return JR.extend ({
-					init: function (a){
+				return Base.extend ({
+					constructor: function (a){
 						_a = a;
 					},
 					a: function (){
@@ -16,8 +18,8 @@ var JohnResigDefinition = Class.create ({
 			var B = (function (){
 				var _b;
 				return A.extend ({
-					init: function (a, b){
-						this._super (a);
+					constructor: function (a, b){
+						this.base (a);
 						_b = b;
 					},
 					b: function (){
@@ -29,8 +31,8 @@ var JohnResigDefinition = Class.create ({
 			var C = (function (){
 				var _c;
 				return B.extend ({
-					init: function (a, b, c){
-						this._super (a, b);
+					constructor: function (a, b, c){
+						this.base (a, b);
 						_c = c;
 					},
 					c: function (){
@@ -42,11 +44,13 @@ var JohnResigDefinition = Class.create ({
 	}
 });
 
-var JohnResigInstantiation = (function (){
+var Base2Instantiation = (function (){
+	var Base = base2.Base;
+	
 	var A = (function (){
 		var _a;
-		return JR.extend ({
-			init: function (a){
+		return Base.extend ({
+			constructor: function (a){
 				_a = 1;
 			},
 			a: function (){
@@ -58,8 +62,8 @@ var JohnResigInstantiation = (function (){
 	var B = (function (){
 		var _b;
 		return A.extend ({
-			init: function (a, b){
-				this._super (a);
+			constructor: function (a, b){
+				this.base (a);
 				_b = b;
 			},
 			b: function (){
@@ -71,8 +75,8 @@ var JohnResigInstantiation = (function (){
 	var C = (function (){
 		var _c;
 		return B.extend ({
-			init: function (a, b, c){
-				this._super (a, b);
+			constructor: function (a, b, c){
+				this.base (a, b);
 				_c = c;
 			},
 			c: function (){
