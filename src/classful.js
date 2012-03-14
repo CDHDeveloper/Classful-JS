@@ -12,21 +12,19 @@
 
 holder["Class"] = {
 	create: function (settings){
-		if (!settings){
-			return function (){};
-		}else{
-			var Class = function (){
-				if (this !== undefined && this !== window){
-					if (constructor) constructor.apply (this, arguments);
-				}else{
-					var o = Object.create (Class.prototype);
-					if (constructor) constructor.apply (o, arguments);
-					return o;
-				}
-			};
+		var Class = function (){
+			if (this !== undefined && this !== window){
+				if (constructor) constructor.apply (this, arguments);
+			}else{
+				var o = Object.create (Class.prototype);
+				if (constructor) constructor.apply (o, arguments);
+				return o;
+			}
+		};
+		
+		var constructor;
 			
-			var constructor;
-			
+		if (settings){
 			var p = settings["constructor"];
 			if (p !== Object){
 				constructor = p;
@@ -94,9 +92,9 @@ holder["Class"] = {
 			if (p){
 				p (Class);
 			}
-			
-			return Class;
 		}
+		
+		return Class;
 	},
 	update: function (f, settings){
 		var p = settings["properties"];
