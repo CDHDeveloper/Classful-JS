@@ -4,7 +4,7 @@ QUnit.test ("Class creation", function (){
 	var A = Class.create ();
 	QUnit.ok (new A () instanceof A, "Empty class.");
 	
-	var A = Class.create ({
+	A = Class.create ({
 		constructor: function (a){
 			this._a = a;
 		},

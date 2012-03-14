@@ -54,13 +54,21 @@ console.log (new B () instanceof A && new B () instanceof B); //Prints: true
   * Runs: 10.
   * Time calculated by (the smallest, the best):
     
-    ![Speed benchmark formula](http://image.gxzone.com/images/9/4/94ea3db6db7.gif)
+    ![Benchmark formula](http://image.gxzone.com/images/1/e/1ef2eaa20a1.png)
   * Hardware: Intel i5-2500K @ 4.1GHz, 8GB DDR3 @ 686MHz.
   * Browser: Firefox 11.
   * For more information about the benchmark see: [Benchmark](https://github.com/Gagle/Classful-JS/blob/master/test/benchmark.html).
 
 ![Benchmark definition](http://image.gxzone.com/images/a/7/a7e4df0aee6.png)  
 ![Benchmark instantiation](http://image.gxzone.com/images/c/b/cb7f17b1769.png)
+
+#### Compatibility ####
+
+✔ Chrome 5+  
+✔ Firefox 4+  
+✔ Internet Explorer 9+  
+✔ Opera 11.60+  
+✔ Safari 5+
 
 #### Documentation ####
 
