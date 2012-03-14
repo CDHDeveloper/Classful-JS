@@ -59,7 +59,7 @@ console.log (new B () instanceof A && new B () instanceof B); //Prints: true
   * Browser: Firefox 11.
   * For more information about the benchmark see: [Benchmark](https://github.com/Gagle/Classful-JS/blob/master/test/benchmark.html).
 
-![Benchmark definition](http://image.gxzone.com/images/f/d/fde633d5086.png)  
+![Benchmark definition](http://image.gxzone.com/images/a/7/a7e4df0aee6.png)  
 ![Benchmark instantiation](http://image.gxzone.com/images/c/b/cb7f17b1769.png)
 
 #### Documentation ####
