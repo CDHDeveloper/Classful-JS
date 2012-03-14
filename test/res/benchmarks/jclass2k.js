@@ -1,9 +1,9 @@
-var JohnResigDefinition = Class.create ({
+var JClass2kDefinition = Class.create ({
 	properties: {
 		run: function (){
 			var A = (function (){
 				var _a;
-				return JohnResigClass.extend ({
+				return new JClass2k ({
 					init: function (a){
 						_a = a;
 					},
@@ -15,39 +15,39 @@ var JohnResigDefinition = Class.create ({
 			
 			var B = (function (){
 				var _b;
-				return A.extend ({
+				return new JClass2k ({
 					init: function (a, b){
-						this._super (a);
+						this.parent (a);
 						_b = b;
 					},
 					b: function (){
 						return _b;
 					}
-				});
+				}, A);
 			})();
 			
 			var C = (function (){
 				var _c;
-				return B.extend ({
+				return new JClass2k ({
 					init: function (a, b, c){
-						this._super (a, b);
+						this.parent (a, b);
 						_c = c;
 					},
 					c: function (){
 						return _c;
 					}
-				});
+				}, B);
 			})();
 		}
 	}
 });
 
-var JohnResigInstantiation = (function (){
+var JClass2kInstantiation = (function (){
 	var A = (function (){
 		var _a;
-		return JohnResigClass.extend ({
+		return new JClass2k ({
 			init: function (a){
-				_a = 1;
+				_a = a;
 			},
 			a: function (){
 				return _a;
@@ -57,28 +57,28 @@ var JohnResigInstantiation = (function (){
 	
 	var B = (function (){
 		var _b;
-		return A.extend ({
+		return new JClass2k ({
 			init: function (a, b){
-				this._super (a);
+				this.parent (a);
 				_b = b;
 			},
 			b: function (){
 				return _b;
 			}
-		});
+		}, A);
 	})();
 	
 	var C = (function (){
 		var _c;
-		return B.extend ({
+		return new JClass2k ({
 			init: function (a, b, c){
-				this._super (a, b);
+				this.parent (a, b);
 				_c = c;
 			},
 			c: function (){
 				return _c;
 			}
-		});
+		}, B);
 	})();
 	
 	return Class.create ({

@@ -3,7 +3,7 @@ Classful JS
 
 #### The definitive JavaScript class library ####
 
-Version: 1.1
+Version: 1.1 revision 1
 
 *Classful JS* is a library that eases the manipulation and usage of JavaScript prototypes.
 
@@ -50,18 +50,17 @@ console.log (new B () instanceof A && new B () instanceof B); //Prints: true
 
 #### Benchmark ####
 
-The following chart demonstrates that Classful JS is the fastest JavaScript class library.
-
   * Loops: 10000.
-  * Runs: 100.
-  * Time calculated by:
+  * Runs: 10.
+  * Time calculated by (the smallest, the best):
     
     ![Speed benchmark formula](http://image.gxzone.com/images/9/4/94ea3db6db7.gif)
   * Hardware: Intel i5-2500K @ 4.1GHz, 8GB DDR3 @ 686MHz.
-  * Browser: Firefox v10.0.2.
-  * For more information about the tests see: [Benchmark](https://github.com/Gagle/Classful-JS/blob/master/test/benchmark.html).
+  * Browser: Firefox 11.
+  * For more information about the benchmark see: [Benchmark](https://github.com/Gagle/Classful-JS/blob/master/test/benchmark.html).
 
-![Speed benchmark](http://image.gxzone.com/images/d/0/d03c7a3cb8c.png)
+![Benchmark definition](http://image.gxzone.com/images/f/d/fde633d5086.png)  
+![Benchmark instantiation](http://image.gxzone.com/images/c/b/cb7f17b1769.png)
 
 #### Documentation ####
 

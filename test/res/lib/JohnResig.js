@@ -6,14 +6,14 @@
 (function(){
   var initializing = false, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
 
-  // The base JR implementation (does nothing)
-  this.JR = function(){};
+  // The base JohnResigClass implementation (does nothing)
+  this.JohnResigClass = function(){};
  
-  // Create a new JR that inherits from this JR
-  JR.extend = function(prop) {
+  // Create a new JohnResigClass that inherits from this JohnResigClass
+  JohnResigClass.extend = function(prop) {
     var _super = this.prototype;
    
-    // Instantiate a base JR (but only create the instance,
+    // Instantiate a base JohnResigClass (but only create the instance,
     // don't run the init constructor)
     initializing = true;
     var prototype = new this();
@@ -29,7 +29,7 @@
             var tmp = this._super;
            
             // Add a new ._super() method that is the same method
-            // but on the super-JR
+            // but on the super-JohnResigClass
             this._super = _super[name];
            
             // The method only need to be bound temporarily, so we
@@ -43,22 +43,22 @@
         prop[name];
     }
    
-    // The dummy JR constructor
-    function JR() {
+    // The dummy JohnResigClass constructor
+    function JohnResigClass() {
       // All construction is actually done in the init method
       if ( !initializing && this.init )
         this.init.apply(this, arguments);
     }
    
     // Populate our constructed prototype object
-    JR.prototype = prototype;
+    JohnResigClass.prototype = prototype;
    
     // Enforce the constructor to be what we expect
-    JR.prototype.constructor = JR;
+    JohnResigClass.prototype.constructor = JohnResigClass;
 
-    // And make this JR extendable
-    JR.extend = arguments.callee;
+    // And make this JohnResigClass extendable
+    JohnResigClass.extend = arguments.callee;
    
-    return JR;
+    return JohnResigClass;
   };
 })();

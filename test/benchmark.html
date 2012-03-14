@@ -2,9 +2,8 @@
 <html>
 <head>
 	<meta charset="UTF-8"/>
-	
-	<script type="text/javascript" src="res/jquery-1.7.1.min.js"></script>
-	<script type="text/javascript" src="../build/classful-1.1.js"></script>
+
+	<script type="text/javascript" src="../build/classful-1.1r1.js"></script>
 	<script type="text/javascript" src="res/lib/JohnResig.js"></script>
 	<script type="text/javascript">JSCLASS_PATH = "res/lib/JSClass"</script>
 	<script type="text/javascript" src="res/lib/JSClass/loader-browser.js"></script>
@@ -13,6 +12,7 @@
 	<script type="text/javascript" src="res/lib/joose.js"></script>
 	<script type="text/javascript" src="res/lib/prototype.js"></script>
 	<script type="text/javascript" src="res/lib/mootools.js"></script>
+	<script type="text/javascript" src="res/lib/jclass2k.js"></script>
 	
 	<script type="text/javascript" src="res/benchmarks/default.js"></script>
 	<script type="text/javascript" src="res/benchmarks/classful.js"></script>
@@ -24,6 +24,7 @@
 	<script type="text/javascript" src="res/benchmarks/joose.js"></script>
 	<script type="text/javascript" src="res/benchmarks/prototype.js"></script>
 	<script type="text/javascript" src="res/benchmarks/mootools.js"></script>
+	<script type="text/javascript" src="res/benchmarks/jclass2k.js"></script>
 	
 	<script type="text/javascript">
 		var Benchmark = (function (){
@@ -59,7 +60,7 @@
 		})();
 		
 		var loops = 10000;
-		var runs = 100;
+		var runs = 10;
 		
 		console.log ("Runs: " + runs);
 		console.log ("Loops per run: " + loops);
@@ -99,6 +100,9 @@
 		
 		function benchMooToolsDefinition (){ new Benchmark (loops, runs, new MooToolsDefinition ()).run (); }
 		function benchMooToolsInstantiation (){ new Benchmark (loops, runs, new MooToolsInstantiation ()).run (); }
+		
+		function benchJClass2kDefinition (){ new Benchmark (loops, runs, new JClass2kDefinition ()).run (); }
+		function benchJClass2kInstantiation (){ new Benchmark (loops, runs, new JClass2kInstantiation ()).run (); }
 	</script>
 </head>
 
@@ -111,7 +115,8 @@
 	<input type="button" value="Run bench: Class definition (Base2)" onclick="benchBase2Definition ();"/><br/>
 	<input type="button" value="Run bench: Class definition (Joose)" onclick="benchJooseDefinition ();"/><br/>
 	<input type="button" value="Run bench: Class definition (Prototype)" onclick="benchPrototypeDefinition ();"/><br/>
-	<input type="button" value="Run bench: Class definition (MooTools)" onclick="benchMooToolsDefinition ();"/><br/><br/>
+	<input type="button" value="Run bench: Class definition (MooTools)" onclick="benchMooToolsDefinition ();"/><br/>
+	<input type="button" value="Run bench: Class definition (jClass2k)" onclick="benchJClass2kDefinition ();"/><br/><br/>
 	
 	<input type="button" value="Run bench: Class instantiation (Default)" onclick="benchDefaultInstantiation ();"/><br/>
 	<input type="button" value="Run bench: Class instantiation (Classful JS)" onclick="benchClassfulInstantiation ();"/><br/>
@@ -121,6 +126,7 @@
 	<input type="button" value="Run bench: Class instantiation (Base2)" onclick="benchBase2Instantiation ();"/><br/>
 	<input type="button" value="Run bench: Class instantiation (Joose)" onclick="benchJooseInstantiation ();"/><br/>
 	<input type="button" value="Run bench: Class instantiation (Prototype)" onclick="benchPrototypeInstantiation ();"/><br/>
-	<input type="button" value="Run bench: Class instantiation (MooTools)" onclick="benchMooToolsInstantiation ();"/>
+	<input type="button" value="Run bench: Class instantiation (MooTools)" onclick="benchMooToolsInstantiation ();"/><br/>
+	<input type="button" value="Run bench: Class instantiation (jClass2k)" onclick="benchJClass2kInstantiation ();"/>
 </body>
 </html>

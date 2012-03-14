@@ -1,5 +1,8 @@
 QUnit.test ("Class creation", function (){
-	QUnit.expect (8);
+	QUnit.expect (10);
+	
+	var A = Class.create ();
+	QUnit.ok (new A () instanceof A, "Empty class.");
 	
 	var A = Class.create ({
 		constructor: function (a){
@@ -47,6 +50,9 @@ QUnit.test ("Class creation", function (){
 	QUnit.ok (new C (1, 2, 3).a () === "C: B: 1", "Inheritance chain with multiple superclasses.");
 	QUnit.ok (new C (1, 2, 3).b () === undefined, "Inheritance chain with multiple superclasses.");
 	QUnit.ok (new C (1, 2, 3).c () === "B: 1", "Inheritance chain with multiple superclasses.");
+	
+	var c = new C ();
+	QUnit.ok (c instanceof A && c instanceof B && c instanceof C && !(new B () instanceof C), "\"instanceof\" keyword.");
 	
 	A = Class.create ({
 		constructor: function (){

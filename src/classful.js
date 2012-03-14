@@ -4,27 +4,29 @@
  *
  * @author Gabriel Llamas
  * @created 16/02/2012
- * @modified 13/03/2012
- * @version 1.1
+ * @modified 14/03/2012
+ * @version 1.1r1
  */
 (function (holder){
 "use strict";
 
 holder["Class"] = {
 	create: function (settings){
-		var Class = function (){
-			if (this !== undefined && this !== window){
-				if (constructor) constructor.apply (this, arguments);
-			}else{
-				var o = Object.create (Class.prototype);
-				if (constructor) constructor.apply (o, arguments);
-				return o;
-			}
-		};
-		
-		var constructor;
-		
-		if (settings){
+		if (!settings){
+			return function (){};
+		}else{
+			var Class = function (){
+				if (this !== undefined && this !== window){
+					if (constructor) constructor.apply (this, arguments);
+				}else{
+					var o = Object.create (Class.prototype);
+					if (constructor) constructor.apply (o, arguments);
+					return o;
+				}
+			};
+			
+			var constructor;
+			
 			var p = settings["constructor"];
 			if (p !== Object){
 				constructor = p;
@@ -92,13 +94,11 @@ holder["Class"] = {
 			if (p){
 				p (Class);
 			}
+			
+			return Class;
 		}
-		
-		return Class;
 	},
 	update: function (f, settings){
-		var type = typeof f;
-		
 		var p = settings["properties"];
 		if (p !== undefined){
 			for (var i in f.prototype){
