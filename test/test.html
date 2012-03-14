@@ -8,7 +8,21 @@
 	<script type="text/javascript" src="res/jquery-1.7.1.min.js"></script>
 	<script type="text/javascript" src="res/qunit-git.js"></script>
 	<script type="text/javascript" src="res/loader.js"></script>
-	<script type="text/javascript" src="test.js"></script>
+	
+	<script type="text/javascript">
+		$(document).ready (function (){
+			Loader.ROOT = "tests/"
+			Loader.TITLE = "Classful JS";
+			Loader.NAME = "classful"
+			Loader.VERSION = "1.1r1";
+			Loader.MINIFIED = true;
+			
+			Loader.include ("class_creation.js");
+			Loader.include ("class_update.js");
+			
+			Loader.load ();
+		});
+	</script>
 </head>
 
 <body>
