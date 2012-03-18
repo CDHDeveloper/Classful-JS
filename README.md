@@ -82,7 +82,7 @@ _Classful JS_ is available in 3 ways:
 		Class.create ();
 	});
 	```
-3. __Node.js__
+3. __Package for Node.js__
 
 	```
 	npm install classful
