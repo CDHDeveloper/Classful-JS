@@ -1,1 +1,0 @@
-actualizar el readme diciendo que hay version para amd y node.js y como instalar para node.js y require
