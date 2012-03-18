@@ -105,7 +105,7 @@ _Classful JS_ is available in 3 ways:
     ![Benchmark formula](http://image.gxzone.com/images/1/e/1ef2eaa20a1.png)
   * Hardware: Intel i5-2500K @ 4.1GHz, 8GB DDR3 @ 686MHz.
   * Browser: Firefox 11.
-  * For more information about the benchmark see: [Benchmark](https://github.com/Gagle/Classful-JS/blob/master/test/benchmark.html).
+  * For more information about the benchmark see: [Benchmark](https://github.com/Gagle/Classful-JS/blob/master/benchmark/benchmark.html).
 
 ![Benchmark definition](http://image.gxzone.com/images/a/7/a7e4df0aee6.png)  
 ![Benchmark instantiation](http://image.gxzone.com/images/c/b/cb7f17b1769.png)
