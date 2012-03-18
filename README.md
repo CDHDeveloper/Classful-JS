@@ -102,7 +102,7 @@ _Classful JS_ is available in 3 ways:
   * Runs: 10.
   * Time calculated by (the smallest, the best):
     
-    ![Benchmark formula](http://image.gxzone.com/images/1/e/1ef2eaa20a1.png)
+    ![Benchmark formula](http://image.gxzone.com/images/5/a/5a6b774b1b6.png)
   * Hardware: Intel i5-2500K @ 4.1GHz, 8GB DDR3 @ 686MHz.
   * Browser: Firefox 11.
   * For more information about the benchmark see: [Benchmark](https://github.com/Gagle/Classful-JS/blob/master/benchmark/benchmark.html).
