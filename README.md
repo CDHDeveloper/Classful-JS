@@ -3,9 +3,9 @@
 Classful JS
 ===========
 
-[Quick example](#quick-example) | [Availability](#availability) | [Benchmark](#benchmark) | [Compatibility](#compatibility) | [Documentation](#documentation) 
-
 #### The definitive JavaScript class library ####
+
+[Quick example](#quick-example) | [Availability](#availability) | [Benchmark](#benchmark) | [Compatibility](#compatibility) | [Documentation](#documentation) 
 
 Version: 1.1.1
 
