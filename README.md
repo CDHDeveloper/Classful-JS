@@ -62,38 +62,36 @@ console.log (new B () instanceof A && new B () instanceof B); //Prints: true
 
 _Classful JS_ is available in 3 ways:
 
-__Standalone__  ([Download](https://github.com/Gagle/Classful-JS/blob/master/build/classful.js))  
-Available through the global namespace `Class`.
+1. __Standalone__  ([Download](https://github.com/Gagle/Classful-JS/blob/master/build/classful.js))  
+   Available through the global namespace `Class`.
 
-```javascript
-Class.create ();
-```
-
-__Module for AMD loaders__ ([Download](https://github.com/Gagle/Classful-JS/blob/master/build/amd/classful.js))  
-Example with __RequireJS__:
-
-```javascript
-require.config ({
-	paths: {
-		"classful": "path/to/classful"
-	}
-});
-require (["classful"], function (Class){
+	```javascript
 	Class.create ();
-});
-```
+	```
 
-__Node.js__  
+2. __Module for AMD loaders__ ([Download](https://github.com/Gagle/Classful-JS/blob/master/build/amd/classful.js))  
+   Example with __RequireJS__:
 
+	```javascript
+	require.config ({
+		paths: {
+			"classful": "path/to/classful"
+		}
+	});
+	require (["classful"], function (Class){
+		Class.create ();
+	});
+	```
+3. __Node.js__
 
-```
-npm install classful
-```
-
-```javascript
-var Class = require ("classful");
-Class.create ();
-```
+	```
+	npm install classful
+	```
+	
+	```javascript
+	var Class = require ("classful");
+	Class.create ();
+	```
 
 ***
 
