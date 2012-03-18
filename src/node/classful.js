@@ -1,5 +1,5 @@
 /**
- * @name Classful JS.
+ * @name Classful JS for Node.
  * @description Library that eases the manipulation and usage of JavaScript prototypes.
  *
  * @author Gabriel Llamas
@@ -7,13 +7,12 @@
  * @modified 18/03/2012
  * @version 1.1.1
  */
-(function (holder){
 "use strict";
 
-holder["Class"] = {
+module.exports = {
 	create: function (settings){
 		var Class = function (){
-			if (this !== undefined && this !== window){
+			if (this !== undefined){
 				if (constructor) constructor.apply (this, arguments);
 			}else{
 				var o = Object.create (Class.prototype);
@@ -125,4 +124,3 @@ holder["Class"] = {
 		}
 	}
 };
-})(this);

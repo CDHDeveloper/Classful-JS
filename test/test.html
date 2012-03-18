@@ -7,15 +7,14 @@
 	
 	<script type="text/javascript" src="res/jquery-1.7.1.min.js"></script>
 	<script type="text/javascript" src="res/qunit-git.js"></script>
+	<script type="text/javascript" src="res/require.js"></script>
 	<script type="text/javascript" src="res/loader.js"></script>
 	
 	<script type="text/javascript">
 		$(document).ready (function (){
-			Loader.ROOT = "tests/"
-			Loader.TITLE = "Classful JS";
-			Loader.NAME = "classful"
-			Loader.VERSION = "1.1r1";
 			Loader.MINIFIED = true;
+			//Loader.DEFAULT, Loader.AMD
+			Loader.TEST = Loader.DEFAULT;
 			
 			Loader.include ("class_creation.js");
 			Loader.include ("class_update.js");
@@ -26,7 +25,7 @@
 </head>
 
 <body>
-	<h1 id="qunit-header"></h1>
+	<h1 id="qunit-header">Classful JS v1.1.1</h1>
 	<h2 id="qunit-banner"></h2>
 	<div id="qunit-testrunner-toolbar"></div>
 	<h2 id="qunit-userAgent"></h2>

@@ -1,5 +1,5 @@
 /**
- * @name Classful JS.
+ * @name Classful JS for AMD loaders.
  * @description Library that eases the manipulation and usage of JavaScript prototypes.
  *
  * @author Gabriel Llamas
@@ -7,10 +7,10 @@
  * @modified 18/03/2012
  * @version 1.1.1
  */
-(function (holder){
+ (function (){
 "use strict";
 
-holder["Class"] = {
+window["define"] ({
 	create: function (settings){
 		var Class = function (){
 			if (this !== undefined && this !== window){
@@ -124,5 +124,5 @@ holder["Class"] = {
 			p (f);
 		}
 	}
-};
-})(this);
+});
+ })();

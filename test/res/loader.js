@@ -1,19 +1,22 @@
 (function (holder){
 var Loader = {};
 
-Loader.ROOT = ""
-Loader.TITLE = "";
-Loader.NAME = "";
-Loader.VERSION = ""
+Loader.DEFAULT = 0;
+Loader.AMD = 1;
+Loader.TEST = Loader.DEFAULT;
 Loader.MINIFIED = false;
 
 var files = [];
 
-var append = function (file){
+var createScript = function (file){
 	var script = document.createElement ("script");
 	script.type = "text/javascript";
 	script.src = file;
-	document.head.appendChild (script);
+	return script;
+};
+
+var append = function (file){
+	document.head.appendChild (createScript (file));
 };
 
 var fixFileName = function (file){
@@ -24,23 +27,35 @@ var fixFileName = function (file){
 };
 
 Loader.load = function (){
+	var addFiles = function (){
+		for (var i in files){
+			append ("tests/" + files[i]);
+		}
+	};
+	
 	var s = "?noglobals=true";
 	if (location.href.substr (location.href.length - s.length, s.length) !== s) location.href += s;
 	
-	$("#qunit-header").text ((Loader.TITLE ? Loader.TITLE + " " : "") + (Loader.VERSION ? "v" + Loader.VERSION : ""));
-	
-	if (Loader.ROOT.charAt (Loader.ROOT.length - 1) !== "/") Loader.ROOT + "/";
-	
 	var file;
-	if (Loader.MINIFIED){
-		file = "../build/" + Loader.NAME + "-" + Loader.VERSION + ".js";
-	}else{
-		file = "../src/" + fixFileName (Loader.NAME);
-	}
-	append (file);
-	
-	for (var i in files){
-		append (Loader.ROOT + files[i]);
+	switch (Loader.TEST){
+		case Loader.DEFAULT:
+			file = Loader.MINIFIED ? "../build/classful.js" : "../src/classful.js";
+			append (file);
+			addFiles ();
+			break;
+		case Loader.AMD:
+			var $title = $("#qunit-header");
+			$title.text ($title.text () + " (AMD)");
+			require.config ({
+				paths: {
+					"classful": Loader.MINIFIED ? "../build/amd/classful" : "../src/amd/classful"
+				}
+			});
+			require (["classful"], function (Class){
+				window.Class = Class;
+				addFiles ();
+			});
+			break;
 	}
 };
 

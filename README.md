@@ -1,9 +1,13 @@
+<a name="start"></a>
+
 Classful JS
 ===========
 
+[Quick example](#quick-example) | [Availability](#availability) | [Benchmark](#benchmark) | [Compatibility](#compatibility) | [Documentation](#documentation) 
+
 #### The definitive JavaScript class library ####
 
-Version: 1.1 revision 1
+Version: 1.1.1
 
 *Classful JS* is a library that eases the manipulation and usage of JavaScript prototypes.
 
@@ -18,7 +22,10 @@ There are some other JavaScript class libraries out in the market but they lack 
 
 The *Classful JS* library unifies all of these aspects and also performs some internal validations to ensure the correct usage.
 
-#### Quick example ####
+***
+
+<a name="quick-example"></a>
+#### Quick example [↑](#start) ####
 
 ```javascript
 var A = Class.create ({
@@ -48,7 +55,50 @@ console.log (new B ("a").a ()); //Prints: Letter a
 console.log (new B () instanceof A && new B () instanceof B); //Prints: true
 ```
 
-#### Benchmark ####
+***
+
+<a name="availability"></a>
+#### Availability [↑](#start) ####
+
+_Classful JS_ is available in 3 ways:
+
+__Standalone__  ([Download](https://github.com/Gagle/Classful-JS/blob/master/build/classful.js))  
+Available through the global namespace `Class`.
+
+```javascript
+Class.create ();
+```
+
+__Module for AMD loaders__ ([Download](https://github.com/Gagle/Classful-JS/blob/master/build/amd/classful.js))  
+Example with __RequireJS__:
+
+```javascript
+require.config ({
+	paths: {
+		"classful": "path/to/classful"
+	}
+});
+require (["classful"], function (Class){
+	Class.create ();
+});
+```
+
+__Node.js__  
+
+
+```
+npm install classful
+```
+
+```javascript
+var Class = require ("classful");
+Class.create ();
+```
+
+***
+
+<a name="benchmark"></a>
+#### Benchmark [↑](#start) ####
 
   * Loops: 10000.
   * Runs: 10.
@@ -62,7 +112,10 @@ console.log (new B () instanceof A && new B () instanceof B); //Prints: true
 ![Benchmark definition](http://image.gxzone.com/images/a/7/a7e4df0aee6.png)  
 ![Benchmark instantiation](http://image.gxzone.com/images/c/b/cb7f17b1769.png)
 
-#### Compatibility ####
+***
+
+<a name="compatibility"></a>
+#### Compatibility [↑](#start) ####
 
 ✔ Chrome 5+  
 ✔ Firefox 4+  
@@ -70,7 +123,10 @@ console.log (new B () instanceof A && new B () instanceof B); //Prints: true
 ✔ Opera 11.60+  
 ✔ Safari 5+
 
-#### Documentation ####
+***
+
+<a name="documentation"></a>
+#### Documentation [↑](#start) ####
 
 [Usage](https://github.com/Gagle/Classful-JS/wiki/Usage)  
 [Advanced topics](https://github.com/Gagle/Classful-JS/wiki/Advanced-topics)  

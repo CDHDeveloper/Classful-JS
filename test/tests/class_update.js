@@ -1,5 +1,5 @@
-QUnit.test ("Class update", function (){
-	QUnit.expect (16);
+var executeClassUpdateTest = function (test){
+	test.expect (16);
 	
 	var A = Class.create ({
 		constructor: function (){
@@ -25,10 +25,10 @@ QUnit.test ("Class update", function (){
 		}
 	});
 	
-	QUnit.ok (new A ().a () === "aa", "Class update (properties) before class instantiation.");
-	QUnit.ok (new A ().z === undefined, "Class update (properties) before class instantiation.");
-	QUnit.ok (a.a () === "aa", "Class update (properties) after class instantiation.");
-	QUnit.ok (a.z === undefined, "Class update (properties) after class instantiation.");
+	test.ok (new A ().a () === "aa", "Class update (properties) before class instantiation.");
+	test.ok (new A ().z === undefined, "Class update (properties) before class instantiation.");
+	test.ok (a.a () === "aa", "Class update (properties) after class instantiation.");
+	test.ok (a.z === undefined, "Class update (properties) after class instantiation.");
 	
 	A = Class.create ({
 		properties: {
@@ -53,8 +53,8 @@ QUnit.test ("Class update", function (){
 		properties: null
 	});
 	
-	QUnit.ok (new B ().b === undefined && new B ().a () === "a", "Class update (properties) before class instantiation, null.");
-	QUnit.ok (b.b === undefined && b.a () === "a", "Class update (properties) after class instantiation, null.");
+	test.ok (new B ().b === undefined && new B ().a () === "a", "Class update (properties) before class instantiation, null.");
+	test.ok (b.b === undefined && b.a () === "a", "Class update (properties) after class instantiation, null.");
 	
 	A = Class.create ({
 		properties: {
@@ -74,8 +74,8 @@ QUnit.test ("Class update", function (){
 		}
 	});
 	
-	QUnit.ok (new A ().b () === "b", "Class update (augment) before class instantiation.");
-	QUnit.ok (a.b () === "b", "Class update (augment) after class instantiation.");
+	test.ok (new A ().b () === "b", "Class update (augment) before class instantiation.");
+	test.ok (a.b () === "b", "Class update (augment) after class instantiation.");
 	
 	A = Class.create ({
 		properties: {
@@ -104,8 +104,8 @@ QUnit.test ("Class update", function (){
 		}
 	});
 	
-	QUnit.ok (new B ().b () === "b" && new B ().a () === "a" && new B ().lol () === "lol", "Class update (augment) before class instantiation.");
-	QUnit.ok (b.b () === "b" && b.a () === "a" && b.lol () === "lol", "Class update (augment) after class instantiation.");
+	test.ok (new B ().b () === "b" && new B ().a () === "a" && new B ().lol () === "lol", "Class update (augment) before class instantiation.");
+	test.ok (b.b () === "b" && b.a () === "a" && b.lol () === "lol", "Class update (augment) after class instantiation.");
 	
 	A = Class.create ({
 		properties: {
@@ -125,8 +125,8 @@ QUnit.test ("Class update", function (){
 		}
 	});
 	
-	QUnit.ok (new A ().a () === "b", "Class update (augment override) before class instantiation.");
-	QUnit.ok (a.a () === "b", "Class update (augment override) after class instantiation.");
+	test.ok (new A ().a () === "b", "Class update (augment override) before class instantiation.");
+	test.ok (a.a () === "b", "Class update (augment override) after class instantiation.");
 	
 	A = Class.create ({
 		properties: {
@@ -154,13 +154,26 @@ QUnit.test ("Class update", function (){
 		}
 	});
 	
-	QUnit.ok (new A ().a () === "aaa", "Class update (augment override properties) before class instantiation.");
-	QUnit.ok (a.a () === "aaa", "Class update (augment override properties) after class instantiation.");
-	QUnit.ok (a.b () === "b", "Class update (augment properties) after class instantiation.");
+	test.ok (new A ().a () === "aaa", "Class update (augment override properties) before class instantiation.");
+	test.ok (a.a () === "aaa", "Class update (augment override properties) after class instantiation.");
+	test.ok (a.b () === "b", "Class update (augment properties) after class instantiation.");
 	
 	Class.update (A, {
 		onUpdate: function (c){
-			QUnit.ok (true, "onUpdate().");
+			test.ok (true, "onUpdate().");
 		}
 	});
-});
+};
+
+if (typeof window === "undefined"){
+	var Class = require ("classful");
+	
+	exports["Class update"] = function (test){
+		executeClassUpdateTest (test);
+		test.done ();
+	}
+}else{
+	QUnit.test ("Class update", function (){
+		executeClassUpdateTest (QUnit);
+	});
+}

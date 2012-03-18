@@ -1,8 +1,8 @@
-QUnit.test ("Class creation", function (){
-	QUnit.expect (10);
+var executeClassCreationTest = function (test){
+	test.expect (10);
 	
 	var A = Class.create ();
-	QUnit.ok (new A () instanceof A, "Empty class.");
+	test.ok (new A () instanceof A, "Empty class.");
 	
 	A = Class.create ({
 		constructor: function (a){
@@ -47,12 +47,12 @@ QUnit.test ("Class creation", function (){
 		}
 	});
 	
-	QUnit.ok (new C (1, 2, 3).a () === "C: B: 1", "Inheritance chain with multiple superclasses.");
-	QUnit.ok (new C (1, 2, 3).b () === undefined, "Inheritance chain with multiple superclasses.");
-	QUnit.ok (new C (1, 2, 3).c () === "B: 1", "Inheritance chain with multiple superclasses.");
+	test.ok (new C (1, 2, 3).a () === "C: B: 1", "Inheritance chain with multiple superclasses.");
+	test.ok (new C (1, 2, 3).b () === undefined, "Inheritance chain with multiple superclasses.");
+	test.ok (new C (1, 2, 3).c () === "B: 1", "Inheritance chain with multiple superclasses.");
 	
 	var c = new C ();
-	QUnit.ok (c instanceof A && c instanceof B && c instanceof C && !(new B () instanceof C), "\"instanceof\" keyword.");
+	test.ok (c instanceof A && c instanceof B && c instanceof C && !(new B () instanceof C), "\"instanceof\" keyword.");
 	
 	A = Class.create ({
 		constructor: function (){
@@ -60,7 +60,7 @@ QUnit.test ("Class creation", function (){
 		}
 	});
 	
-	QUnit.ok (A ().a === "a", "Instantiation without new.");
+	test.ok (A ().a === "a", "Instantiation without new.");
 
 	A = Class.create ({
 		singleton: true,
@@ -71,20 +71,20 @@ QUnit.test ("Class creation", function (){
 	
 	try{
 		new A ();
-		QUnit.ok (false, "Cannot instantiate a singleton (is not a constructor).");
+		test.ok (false, "Cannot instantiate a singleton (is not a constructor).");
 	}catch (e){
-		QUnit.ok (true, "Cannot instantiate a singleton (is not a constructor).");
+		test.ok (true, "Cannot instantiate a singleton (is not a constructor).");
 	}
 	
-	QUnit.ok (A.getInstance ().a === "a", "Singleton getInstance().");
+	test.ok (A.getInstance ().a === "a", "Singleton getInstance().");
 	
 	try{
 		B = Class.create ({
 			extend: A
 		});
-		QUnit.ok (false, "Cannot extend a singleton.");
+		test.ok (false, "Cannot extend a singleton.");
 	}catch (e){
-		QUnit.ok (true, "Cannot extend a singleton.");
+		test.ok (true, "Cannot extend a singleton.");
 	}
 	
 	Class.create ({
@@ -92,7 +92,21 @@ QUnit.test ("Class creation", function (){
 			a: 2
 		},
 		onCreate: function (c){
-			QUnit.ok (new c ().a === 2, "onCreate().");
+			test.ok (new c ().a === 2, "onCreate().");
 		}
 	});
-});
+};
+
+if (typeof window === "undefined"){
+	var Class = require ("classful");
+	
+	exports["Class creation"] = function (test){
+		executeClassCreationTest (test);
+		test.done ();
+	}
+}else{
+	QUnit.test ("Class creation", function (){
+		executeClassCreationTest (QUnit);
+	});
+}
+
