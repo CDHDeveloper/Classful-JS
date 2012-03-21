@@ -29,7 +29,7 @@ The *Classful JS* library unifies all of these aspects and also performs some in
 
 * Because it's fast! [Benchmark](#benchmark).
 * Because it's easy to use! [Quick example](#quick-example).
-* Don't you like the _Class_ name for some weird reasons? Then try to imagine this library as a prototype wrapper.
+* Don't you like the _Class_ word for some weird reasons? Then try to imagine this library as a prototype wrapper.
 * You'll win readability and maintainability. You won't need to deal with the `prototype` property anymore.
 
 
