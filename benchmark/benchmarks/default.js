@@ -1,3 +1,7 @@
+if (typeof window === "undefined"){
+	var Class = require ("../../build/node/classful");
+}
+
 var DefaultDefinition = Class.create ({
 	properties: {
 		run: function (){
@@ -143,3 +147,8 @@ var DefaultInstantiation = (function (){
 		}
 	});
 })();
+
+if (typeof window === "undefined"){
+	module.exports.DefaultDefinition = DefaultDefinition;
+	module.exports.DefaultInstantiation = DefaultInstantiation;
+}

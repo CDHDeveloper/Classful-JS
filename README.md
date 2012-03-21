@@ -5,7 +5,7 @@ Classful JS
 
 #### The definitive JavaScript class library ####
 
-[Quick example](#quick-example) | [Availability](#availability) | [Benchmark](#benchmark) | [Compatibility](#compatibility) | [Documentation](#documentation) 
+[Why Classful JS?](#why-classful) | [Quick example](#quick-example) | [Availability](#availability) | [Benchmark](#benchmark) | [Compatibility](#compatibility) | [Documentation](#documentation) 
 
 Version: 1.1.1
 
@@ -21,6 +21,17 @@ There are some other JavaScript class libraries out in the market but they lack 
 * Ugly and messy syntax. If you're writing JavaScript code why some libraries try to simulate the syntax of other languages? If you're creating a class why some libraries create them improperly from the design and usability points of view? *Classful JS* prioritizes a good design.
 
 The *Classful JS* library unifies all of these aspects and also performs some internal validations to ensure the correct usage.
+
+***
+
+<a name="why-classful"></a>
+#### Why Classful JS? [↑](#start) ####
+
+* Because it's fast! [Benchmark](#benchmark).
+* Because it's easy to use! [Quick example](#quick-example).
+* Don't you like the _Class_ name for some weird reasons? Then try to imagine this library as a prototype wrapper.
+* You'll win readability and maintainability. You won't need to deal with the `prototype` property anymore.
+
 
 ***
 
@@ -105,7 +116,7 @@ _Classful JS_ is available in 3 ways:
     ![Benchmark formula](http://image.gxzone.com/images/5/a/5a6b774b1b6.png)
   * Hardware: Intel i5-2500K @ 4.1GHz, 8GB DDR3 @ 686MHz.
   * Browser: Firefox 11.
-  * For more information about the benchmark see: [Benchmark](https://github.com/Gagle/Classful-JS/blob/master/benchmark/benchmark.html).
+  * For more information about the benchmark, see: [Benchmark](https://github.com/Gagle/Classful-JS/blob/master/benchmark/benchmark.html).
 
 ![Benchmark definition](http://image.gxzone.com/images/a/7/a7e4df0aee6.png)  
 ![Benchmark instantiation](http://image.gxzone.com/images/c/b/cb7f17b1769.png)

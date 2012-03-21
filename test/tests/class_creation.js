@@ -98,9 +98,9 @@ var executeClassCreationTest = function (test){
 };
 
 if (typeof window === "undefined"){
-	var Class = require ("classful");
+	var Class = require ("../../build/node/classful");
 	
-	exports["Class creation"] = function (test){
+	module.exports["Class creation"] = function (test){
 		executeClassCreationTest (test);
 		test.done ();
 	}

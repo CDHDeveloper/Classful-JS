@@ -1,3 +1,7 @@
+if (typeof window === "undefined"){
+	var Class = require ("../../build/node/classful");
+}
+
 var ClassfulDefinition = Class.create ({
 	properties: {
 		run: function (){
@@ -105,3 +109,8 @@ var ClassfulInstantiation = (function (){
 		}
 	});
 })();
+
+if (typeof window === "undefined"){
+	module.exports.ClassfulDefinition = ClassfulDefinition;
+	module.exports.ClassfulInstantiation = ClassfulInstantiation;
+}

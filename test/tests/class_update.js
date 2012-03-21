@@ -166,9 +166,9 @@ var executeClassUpdateTest = function (test){
 };
 
 if (typeof window === "undefined"){
-	var Class = require ("classful");
+	var Class = require ("../../build/node/classful");
 	
-	exports["Class update"] = function (test){
+	module.exports["Class update"] = function (test){
 		executeClassUpdateTest (test);
 		test.done ();
 	}
