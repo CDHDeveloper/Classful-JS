@@ -57,7 +57,7 @@ var B = Class.create ({
 	},
 	properties: {
 		a: function (){
-			return "Letter: " + this.__super__.a ();
+			return "Letter " + this.__super__.a ();
 		}
 	}
 });
@@ -130,7 +130,8 @@ _Classful JS_ is available in 3 ways:
 ✔ Firefox 4+  
 ✔ Internet Explorer 9+  
 ✔ Opera 11.60+  
-✔ Safari 5+
+✔ Safari 5+  
+✔ Node *
 
 ***
 
