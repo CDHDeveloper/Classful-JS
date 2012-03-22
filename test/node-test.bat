@@ -1,5 +1,5 @@
 @echo off
 
-call nodeunit tests/class_creation.js
-call nodeunit tests/class_update.js
+set folder=tests
+for %%i in (%folder%/*) do call nodeunit %folder%/%%i
 pause
