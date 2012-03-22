@@ -36,6 +36,7 @@ Loader.load = function (){
 	var s = "?noglobals=true";
 	if (location.href.substr (location.href.length - s.length, s.length) !== s) location.href += s;
 	
+	var $title = $("#qunit-header");
 	var file;
 	switch (Loader.TEST){
 		case Loader.DEFAULT:
@@ -44,7 +45,6 @@ Loader.load = function (){
 			addFiles ();
 			break;
 		case Loader.AMD:
-			var $title = $("#qunit-header");
 			$title.text ($title.text () + " (AMD)");
 			require.config ({
 				paths: {
@@ -57,6 +57,9 @@ Loader.load = function (){
 			});
 			break;
 	}
+	
+	var msg = Loader.MINIFIED ? " - BUILD" : " - SOURCE";
+	$title.text ($title.text () + msg);
 };
 
 Loader.include = function (file){

@@ -4,8 +4,8 @@
  *
  * @author Gabriel Llamas
  * @created 16/02/2012
- * @modified 18/03/2012
- * @version 1.1.1
+ * @modified 22/03/2012
+ * @version 1.1.2
  */
 (function (holder){
 "use strict";
@@ -13,7 +13,7 @@
 holder["Class"] = {
 	create: function (settings){
 		var Class = function (){
-			if (this !== undefined && this !== window){
+			if (this !== undefined){
 				if (constructor) constructor.apply (this, arguments);
 			}else{
 				var o = Object.create (Class.prototype);

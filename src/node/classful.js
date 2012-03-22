@@ -1,11 +1,11 @@
 /**
- * @name Classful JS for Node.
+ * @name Classful JS for Node.js.
  * @description Library that eases the manipulation and usage of JavaScript prototypes.
  *
  * @author Gabriel Llamas
  * @created 16/02/2012
- * @modified 18/03/2012
- * @version 1.1.1
+ * @modified 22/03/2012
+ * @version 1.1.2
  */
 "use strict";
 

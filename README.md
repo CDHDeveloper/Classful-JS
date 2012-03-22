@@ -7,7 +7,7 @@ Classful JS
 
 [Why Classful JS?](#why-classful) | [Quick example](#quick-example) | [Availability](#availability) | [Benchmark](#benchmark) | [Compatibility](#compatibility) | [Documentation](#documentation) 
 
-Version: 1.1.1
+Version: 1.1.2
 
 *Classful JS* is a library that eases the manipulation and usage of JavaScript prototypes.
 
